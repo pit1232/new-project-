@@ -5,9 +5,13 @@ import { useChatStore } from '../stores/chatStore'
 import { useSettingsStore } from '../stores/settingsStore'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import GreetingBanner from '../components/GreetingBanner'
+import NeuralOrb from '../components/NeuralOrb'
+import VoiceSystem from '../components/VoiceSystem'
 
 function ChatPage(): React.ReactElement {
   const [input, setInput] = useState('')
+  const [orbState, setOrbState] = useState<'idle' | 'thinking' | 'speaking'>('idle')
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const { messages, isLoading, activeProvider, addMessage, setLoading, setProvider, clearMessages } =
     useChatStore()
@@ -51,6 +55,12 @@ function ChatPage(): React.ReactElement {
           content: response.content || 'No response received.',
           provider: response.provider
         })
+        // Speak the response via TTS
+        if ((window as any).__mmb_speak) {
+          (window as any).__mmb_speak(response.content || '')
+          setOrbState('speaking')
+          setTimeout(() => setOrbState('idle'), 3000)
+        }
       }
     } catch (error: any) {
       addMessage({ role: 'assistant', content: `❌ Error: ${error.message}` })
@@ -105,14 +115,9 @@ function ChatPage(): React.ReactElement {
       <div className="flex-1 overflow-y-auto space-y-4 pr-2">
         {messages.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center text-center">
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              className="w-20 h-20 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-cyan-500/20 flex items-center justify-center mb-4 glow-green"
-            >
-              <Bot size={36} className="text-emerald-400" />
-            </motion.div>
-            <h2 className="text-xl font-semibold text-white/80 mb-2">MMB AI Ready</h2>
+            <GreetingBanner />
+            <NeuralOrb state={isLoading ? 'thinking' : orbState} size={180} />
+            <h2 className="text-xl font-semibold text-white/80 mb-2 mt-4">MMB AI Ready</h2>
             <p className="text-sm text-white/40 max-w-sm">
               Your personal AI assistant. Ask me anything — code, research, system tasks, or just
               chat.
@@ -190,7 +195,23 @@ function ChatPage(): React.ReactElement {
           placeholder="Ask MMB AI anything..."
           className="flex-1 bg-transparent px-4 py-3 text-sm text-white/90 placeholder-white/30 outline-none"
         />
+        <VoiceSystem
+          onTranscript={(text) => {
+            setInput(text)
+            // Auto-send voice input
+            setTimeout(() => {
+              const btn = document.getElementById('send-btn')
+              btn?.click()
+            }, 100)
+          }}
+          onStateChange={(state) => {
+            if (state === 'listening') setOrbState('idle')
+            else if (state === 'speaking') setOrbState('speaking')
+          }}
+          isProcessing={isLoading}
+        />
         <motion.button
+          id="send-btn"
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleSend}

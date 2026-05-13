@@ -49,7 +49,7 @@ linux:
     - AppImage
     - snap
     - deb
-  maintainer: MMB
+  maintainer: Kuldeep (Co-Founder, MMB)
   category: Utility
 appImage:
   artifactName: ${name}-${version}.${ext}

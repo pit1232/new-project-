@@ -1,8 +1,10 @@
-# 👁️ IRIS: The Neural OS - Project Context
+# 🧠 MMB AI: The Neural OS - Project Context
 
 ## Project Identity
 
-IRIS is a high-performance, local-first Agentic Operating System (OS). It is not a standard web app. It is an immersive desktop environment featuring a real-time conversational WebRTC audio pipeline, biometric security (Face ID), and full file-system/hardware control.
+MMB AI is a high-performance, local-first Agentic Operating System (OS). It is not a standard web app. It is an immersive desktop environment featuring a real-time conversational WebRTC audio pipeline, biometric security (Face ID), and full file-system/hardware control.
+
+**Created by Kuldeep — Co-Founder, MMB**
 
 ## Tech Stack
 
@@ -21,9 +23,7 @@ IRIS is a high-performance, local-first Agentic Operating System (OS). It is not
 
 ## Global Engineering Rules
 
-
-1. **The IPC Bridge:** NEVER import `fs`, `path`, or native Node modules in the React (`src/renderer`) layer. All hardware and OS-level tasks must be routed through `window.electron.ipcRenderer`.
-2. **Premium OS Aesthetic:** IRIS uses a dark-mode, glassmorphic UI. Standard panels use `bg-black/40 backdrop-blur-xl border border-white/5`. Never use default, flat web-app styling.
+1. **The IPC Bridge:** NEVER import `fs`, `path`, or native Node modules in the React (`src/renderer`) layer. All hardware and OS-level tasks must be routed through `window.api`.
+2. **Premium OS Aesthetic:** MMB AI uses a dark-mode, glassmorphic UI. Standard panels use `bg-black/40 backdrop-blur-xl border border-white/5`. Never use default, flat web-app styling.
 3. **Audio Latency:** WebRTC audio must be buffered (min 4096 frames) before sending over WebSocket to prevent flooding. Active audio nodes must be instantly cancelled if an `interrupted` flag is detected.
 4. **Cinematic Error Handling:** A premium OS never shows a raw JS crash. Catch all promises and display cinematic, themed error HUDs.
-

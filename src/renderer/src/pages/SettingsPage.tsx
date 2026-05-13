@@ -150,9 +150,12 @@ function SettingsPage(): React.ReactElement {
         <h3 className="text-sm font-medium text-white/80 mb-3">About MMB AI</h3>
         <div className="space-y-2 text-xs text-white/40">
           <p>Version: 1.0.0</p>
-          <p>Electron Desktop AI Assistant</p>
-          <p>Built with React 19 + Tailwind CSS + Framer Motion</p>
-          <p className="text-emerald-400/60 mt-3">
+          <p>MMB AI — The Neural Desktop Operating System</p>
+          <p>Built with React 19 + Tailwind CSS + Framer Motion + Three.js</p>
+          <p className="mt-3 text-white/50">
+            Created by <span className="text-emerald-400/80 font-medium">Kuldeep</span> — Co-Founder, MMB
+          </p>
+          <p className="text-emerald-400/60 mt-2">
             Powered by Google Gemini & Groq
           </p>
         </div>

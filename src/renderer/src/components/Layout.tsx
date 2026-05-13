@@ -7,6 +7,7 @@ import {
   Terminal,
   Globe,
   Brain,
+  GitBranch,
   Shield,
   Settings,
   Minus,
@@ -21,6 +22,7 @@ const navItems = [
   { path: '/devtools', icon: Terminal, label: 'Dev Tools' },
   { path: '/research', icon: Globe, label: 'Research' },
   { path: '/memory', icon: Brain, label: 'Memory' },
+  { path: '/memory-graph', icon: GitBranch, label: 'Graph' },
   { path: '/security', icon: Shield, label: 'Security' },
   { path: '/settings', icon: Settings, label: 'Settings' }
 ]

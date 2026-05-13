@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "MMB AI - Your Personal Desktop AI Assistant. A powerful, local-first AI operating layer that gives you complete authority over your digital environment.",
   "main": "./out/main/index.js",
-  "author": "MMB",
+  "author": "Kuldeep (Co-Founder, MMB)",
   "homepage": "",
   "scripts": {
     "format": "prettier --write .",

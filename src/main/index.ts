@@ -14,6 +14,8 @@ import { registerMobileControlHandlers } from './mobileControl'
 import { registerWebResearchHandlers } from './webResearch'
 import { registerMediaFinanceHandlers } from './mediaFinance'
 import { registerAdvancedFeaturesHandlers } from './advancedFeatures'
+import { registerMultiAgentHandlers } from './multiAgent'
+import { registerPluginSystemHandlers } from './pluginSystem'
 
 const store = new Store()
 
@@ -379,6 +381,8 @@ app.whenReady().then(() => {
   registerWebResearchHandlers()
   registerMediaFinanceHandlers()
   registerAdvancedFeaturesHandlers()
+  registerMultiAgentHandlers()
+  registerPluginSystemHandlers()
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
