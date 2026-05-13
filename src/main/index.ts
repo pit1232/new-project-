@@ -5,10 +5,19 @@ import * as fs from 'fs'
 import * as path from 'path'
 import { exec, spawn } from 'child_process'
 import Store from 'electron-store'
+import { registerWindowManagerHandlers } from './windowManager'
+import { registerDesktopAutomationHandlers } from './desktopAutomation'
+import { registerVectorSearchHandlers } from './vectorSearch'
+import { registerOCRVisionHandlers } from './ocrVision'
+import { registerCommunicationsHandlers } from './communications'
+import { registerMobileControlHandlers } from './mobileControl'
+import { registerWebResearchHandlers } from './webResearch'
+import { registerMediaFinanceHandlers } from './mediaFinance'
+import { registerAdvancedFeaturesHandlers } from './advancedFeatures'
 
 const store = new Store()
 
-function createWindow(): void {
+function createWindow(): BrowserWindow {
   const mainWindow = new BrowserWindow({
     width: 1400,
     height: 900,
@@ -53,6 +62,8 @@ function createWindow(): void {
     }
   })
   ipcMain.on('window-close', () => mainWindow.close())
+
+  return mainWindow
 }
 
 // ============ FILE SYSTEM OPERATIONS ============
@@ -356,7 +367,18 @@ app.whenReady().then(() => {
     optimizer.watchWindowShortcuts(window)
   })
 
-  createWindow()
+  const mainWindow = createWindow()
+
+  // Register all feature modules
+  registerWindowManagerHandlers(mainWindow)
+  registerDesktopAutomationHandlers()
+  registerVectorSearchHandlers()
+  registerOCRVisionHandlers()
+  registerCommunicationsHandlers()
+  registerMobileControlHandlers()
+  registerWebResearchHandlers()
+  registerMediaFinanceHandlers()
+  registerAdvancedFeaturesHandlers()
 
   app.on('activate', function () {
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
